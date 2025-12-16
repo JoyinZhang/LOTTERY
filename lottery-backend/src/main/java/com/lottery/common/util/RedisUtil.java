@@ -39,6 +39,18 @@ public class RedisUtil {
     }
 
     /**
+     * 获取值（泛型版本）
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T get(String key, Class<T> clazz) {
+        Object value = redisTemplate.opsForValue().get(key);
+        if (value == null) {
+            return null;
+        }
+        return (T) value;
+    }
+
+    /**
      * 删除键
      */
     public Boolean delete(String key) {
@@ -65,6 +77,13 @@ public class RedisUtil {
     public Boolean tryLock(String key, long timeout) {
         Boolean success = redisTemplate.opsForValue().setIfAbsent(key, "1", timeout, TimeUnit.SECONDS);
         return success != null && success;
+    }
+
+    /**
+     * 设置键值（仅当键不存在时）
+     */
+    public Boolean setIfAbsent(String key, String value, long timeout, TimeUnit unit) {
+        return redisTemplate.opsForValue().setIfAbsent(key, value, timeout, unit);
     }
 
     /**

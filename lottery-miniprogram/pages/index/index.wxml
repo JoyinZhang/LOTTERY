@@ -1,0 +1,49 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 顶部用户信息 -->
+  <view class="user-section card">
+    <view wx:if="{{hasUserInfo}}" class="user-info">
+      <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+      <view class="user-name">{{userInfo.nickName}}</view>
+    </view>
+    <view wx:else class="user-login">
+      <button class="btn-login" bindtap="getUserProfile">点击登录</button>
+    </view>
+  </view>
+
+  <!-- 功能按钮 -->
+  <view class="function-section">
+    <view class="card function-card" bindtap="goToCreate">
+      <view class="function-icon">🎁</view>
+      <view class="function-title">创建抽奖</view>
+      <view class="function-desc">发起一个新的抽奖活动</view>
+    </view>
+
+    <view class="card function-card" bindtap="scanCode">
+      <view class="function-icon">📷</view>
+      <view class="function-title">扫码参与</view>
+      <view class="function-desc">扫描二维码参加抽奖</view>
+    </view>
+  </view>
+
+  <!-- 使用说明 -->
+  <view class="card tips-section">
+    <view class="title">使用说明</view>
+    <view class="tip-item">
+      <text class="tip-number">1.</text>
+      <text class="tip-text">创建抽奖活动，设置奖品数量和开奖规则</text>
+    </view>
+    <view class="tip-item">
+      <text class="tip-number">2.</text>
+      <text class="tip-text">分享活动给好友，邀请大家参与</text>
+    </view>
+    <view class="tip-item">
+      <text class="tip-number">3.</text>
+      <text class="tip-text">达到开奖条件后自动开奖</text>
+    </view>
+    <view class="tip-item">
+      <text class="tip-number">4.</text>
+      <text class="tip-text">查看中奖名单</text>
+    </view>
+  </view>
+</view>

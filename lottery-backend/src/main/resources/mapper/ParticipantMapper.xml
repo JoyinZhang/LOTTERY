@@ -24,6 +24,12 @@
         )
     </insert>
     
+    <!-- 根据ID查询 -->
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM lottery_participant
+        WHERE id = #{id}
+    </select>
+    
     <!-- 批量插入参与记录 -->
     <insert id="batchInsert">
         INSERT INTO lottery_participant (

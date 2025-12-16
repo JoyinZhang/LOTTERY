@@ -1,0 +1,51 @@
+<!--pages/activity/activity.wxml-->
+<view class="container">
+  <view wx:if="{{activity}}" class="card activity-card">
+    <view class="activity-title">{{activity.title}}</view>
+    <view class="activity-desc">{{activity.description}}</view>
+
+    <view class="info-row">
+      <text class="label">奖品数量：</text>
+      <text class="value">{{activity.prizeCount}}份</text>
+    </view>
+
+    <view class="info-row">
+      <text class="label">开奖方式：</text>
+      <text class="value">{{activity.drawMode === 1 ? '定时开奖' : activity.drawMode === 2 ? '人数开奖' : '即抽即中'}}</text>
+    </view>
+
+    <view wx:if="{{activity.drawMode === 1}}" class="info-row">
+      <text class="label">开奖时间：</text>
+      <text class="value">{{activity.drawTime}}</text>
+    </view>
+
+    <view wx:if="{{activity.drawMode === 2}}" class="info-row">
+      <text class="label">目标人数：</text>
+      <text class="value">{{activity.targetParticipantCount}}人</text>
+    </view>
+
+    <view class="info-row">
+      <text class="label">活动状态：</text>
+      <view class="tag {{activity.status === 1 ? 'tag-success' : activity.status === 2 ? 'tag-warning' : 'tag-danger'}}">
+        {{activity.status === 1 ? '进行中' : activity.status === 2 ? '已开奖' : '已取消'}}
+      </view>
+    </view>
+
+    <view wx:if="{{hasParticipated}}" class="participated-status">
+      <text class="status-text">✓ 您已参与</text>
+      <text wx:if="{{isWinner}}" class="winner-text">🎉 恭喜中奖！</text>
+    </view>
+
+    <view wx:else class="btn-primary" bindtap="joinActivity">
+      立即参与
+    </view>
+
+    <view class="btn-secondary" bindtap="goToWinners">
+      查看中奖名单
+    </view>
+
+    <button class="btn-secondary" open-type="share">
+      分享给好友
+    </button>
+  </view>
+</view>

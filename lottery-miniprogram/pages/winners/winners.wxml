@@ -1,0 +1,22 @@
+<!--pages/winners/winners.wxml-->
+<view class="container">
+  <view wx:if="{{winnerList}}" class="card">
+    <view class="title">{{winnerList.activityTitle}}</view>
+    <view class="subtitle">中奖人数：{{winnerList.winnerCount}}人</view>
+
+    <view wx:if="{{winnerList.winners && winnerList.winners.length > 0}}" class="winner-list">
+      <view wx:for="{{winnerList.winners}}" wx:key="id" class="winner-item">
+        <image class="avatar" src="{{item.avatarUrl}}"></image>
+        <view class="winner-info">
+          <view class="winner-name">{{item.nickname}}</view>
+          <view class="win-time">{{item.winTime}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:else class="empty-state">
+      <view class="empty-state-icon">🎁</view>
+      <view class="empty-state-text">暂无中奖名单</view>
+    </view>
+  </view>
+</view>

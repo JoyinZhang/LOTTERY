@@ -1,0 +1,56 @@
+<!--pages/create/create.wxml-->
+<view class="container">
+  <view class="card">
+    <view class="title">创建抽奖活动</view>
+
+    <!-- 活动标题 -->
+    <view class="input-group">
+      <text class="input-label">活动标题</text>
+      <input class="input-field" placeholder="请输入活动标题" value="{{title}}" bindinput="onTitleInput" />
+    </view>
+
+    <!-- 活动说明 -->
+    <view class="input-group">
+      <text class="input-label">活动说明</text>
+      <textarea class="input-field textarea" placeholder="请输入活动说明（可选）" value="{{description}}" bindinput="onDescInput" />
+    </view>
+
+    <!-- 奖品数量 -->
+    <view class="input-group">
+      <text class="input-label">奖品数量</text>
+      <input class="input-field" type="number" placeholder="请输入奖品数量" value="{{prizeCount}}" bindinput="onPrizeCountChange" />
+    </view>
+
+    <!-- 开奖模式 -->
+    <view class="input-group">
+      <text class="input-label">开奖模式</text>
+      <radio-group bindchange="onDrawModeChange">
+        <label wx:for="{{drawModes}}" wx:key="value" class="radio-item">
+          <radio value="{{item.value}}" checked="{{drawMode === item.value}}" />
+          <text>{{item.label}}</text>
+        </label>
+      </radio-group>
+    </view>
+
+    <!-- 定时开奖时间 -->
+    <view wx:if="{{drawMode === 1}}" class="input-group">
+      <text class="input-label">开奖时间</text>
+      <picker mode="date-time" value="{{drawTime}}" bindchange="onDrawTimeChange">
+        <view class="picker">
+          {{drawTime || '请选择开奖时间'}}
+        </view>
+      </picker>
+    </view>
+
+    <!-- 人数开奖目标 -->
+    <view wx:if="{{drawMode === 2}}" class="input-group">
+      <text class="input-label">目标参与人数</text>
+      <input class="input-field" type="number" placeholder="请输入目标人数" value="{{targetCount}}" bindinput="onTargetCountChange" />
+    </view>
+
+    <!-- 创建按钮 -->
+    <view class="btn-primary" bindtap="createActivity">
+      创建活动
+    </view>
+  </view>
+</view>

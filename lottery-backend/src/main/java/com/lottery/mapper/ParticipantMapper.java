@@ -20,6 +20,11 @@ public interface ParticipantMapper {
     int insert(Participant participant);
 
     /**
+     * 根据ID查询
+     */
+    Participant selectById(@Param("id") Long id);
+
+    /**
      * 批量插入参与记录
      */
     int batchInsert(@Param("list") List<Participant> participants);
