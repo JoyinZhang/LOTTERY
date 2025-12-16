@@ -55,7 +55,20 @@ LOTTERY/
 │   │   └── test/                       # 测试代码
 │   ├── Dockerfile
 │   └── pom.xml
-├── lottery-miniprogram/                 # 微信小程序(待开发)
+├── lottery-miniprogram/                 # 微信小程序前端
+│   ├── pages/                           # 页面目录
+│   │   ├── index/                       # 首页
+│   │   ├── create/                      # 创建活动页
+│   │   ├── activity/                    # 活动详情页
+│   │   ├── winners/                     # 中奖名单页
+│   │   └── my/                          # 我的活动页
+│   ├── utils/                           # 工具类
+│   │   ├── request.js                   # 网络请求封装
+│   │   ├── api.js                       # API接口定义
+│   │   └── util.js                      # 通用工具函数
+│   ├── app.js                           # 小程序入口
+│   ├── app.json                         # 全局配置
+│   └── project.config.json              # 项目配置
 ├── docker-compose.yml                   # Docker编排文件
 ├── .qoder/
 │   ├── quests/                         # 技术方案设计
