@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: lottery-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: lottery123
+      MYSQL_DATABASE: lottery
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./lottery-backend/src/main/resources/sql/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - lottery-network
+    command: --default-authentication-plugin=mysql_native_password
+
+  redis:
+    image: redis:6.0-alpine
+    container_name: lottery-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - lottery-network
+    command: redis-server --appendonly yes
+
+  lottery-backend:
+    build: ./lottery-backend
+    container_name: lottery-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: lottery
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: lottery123
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      WECHAT_APPID: ${WECHAT_APPID}
+      WECHAT_SECRET: ${WECHAT_SECRET}
+    networks:
+      - lottery-network
+    restart: unless-stopped
+
+volumes:
+  mysql-data:
+  redis-data:
+
+networks:
+  lottery-network:
+    driver: bridge

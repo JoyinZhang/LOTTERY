@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lottery.mapper.WinnerMapper">
+    
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.lottery.entity.Winner">
+        <id column="id" property="id" />
+        <result column="activity_id" property="activityId" />
+        <result column="participant_id" property="participantId" />
+        <result column="openid" property="openid" />
+        <result column="nickname" property="nickname" />
+        <result column="avatar_url" property="avatarUrl" />
+        <result column="win_time" property="winTime" />
+    </resultMap>
+    
+    <!-- 插入中奖记录 -->
+    <insert id="insert" parameterType="com.lottery.entity.Winner" 
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO lottery_winner (
+            activity_id, participant_id, openid, nickname, avatar_url, win_time
+        ) VALUES (
+            #{activityId}, #{participantId}, #{openid}, #{nickname}, #{avatarUrl}, #{winTime}
+        )
+    </insert>
+    
+    <!-- 批量插入中奖记录 -->
+    <insert id="batchInsert">
+        INSERT INTO lottery_winner (
+            activity_id, participant_id, openid, nickname, avatar_url, win_time
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.activityId}, #{item.participantId}, #{item.openid}, 
+             #{item.nickname}, #{item.avatarUrl}, #{item.winTime})
+        </foreach>
+    </insert>
+    
+    <!-- 根据活动ID查询中奖名单 -->
+    <select id="selectByActivityId" resultMap="BaseResultMap">
+        SELECT * FROM lottery_winner
+        WHERE activity_id = #{activityId}
+        ORDER BY win_time DESC
+    </select>
+    
+    <!-- 统计活动中奖人数 -->
+    <select id="countByActivityId" resultType="int">
+        SELECT COUNT(*) FROM lottery_winner
+        WHERE activity_id = #{activityId}
+    </select>
+    
+    <!-- 根据活动ID和OpenID查询 -->
+    <select id="selectByActivityAndOpenid" resultMap="BaseResultMap">
+        SELECT * FROM lottery_winner
+        WHERE activity_id = #{activityId} AND openid = #{openid}
+    </select>
+    
+</mapper>

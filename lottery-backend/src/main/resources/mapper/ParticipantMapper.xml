@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lottery.mapper.ParticipantMapper">
+    
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.lottery.entity.Participant">
+        <id column="id" property="id" />
+        <result column="activity_id" property="activityId" />
+        <result column="openid" property="openid" />
+        <result column="nickname" property="nickname" />
+        <result column="avatar_url" property="avatarUrl" />
+        <result column="participate_time" property="participateTime" />
+        <result column="is_winner" property="isWinner" />
+    </resultMap>
+    
+    <!-- 插入参与记录 -->
+    <insert id="insert" parameterType="com.lottery.entity.Participant" 
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO lottery_participant (
+            activity_id, openid, nickname, avatar_url, participate_time, is_winner
+        ) VALUES (
+            #{activityId}, #{openid}, #{nickname}, #{avatarUrl}, #{participateTime}, #{isWinner}
+        )
+    </insert>
+    
+    <!-- 批量插入参与记录 -->
+    <insert id="batchInsert">
+        INSERT INTO lottery_participant (
+            activity_id, openid, nickname, avatar_url, participate_time, is_winner
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.activityId}, #{item.openid}, #{item.nickname}, #{item.avatarUrl}, 
+             #{item.participateTime}, #{item.isWinner})
+        </foreach>
+    </insert>
+    
+    <!-- 根据活动ID和OpenID查询 -->
+    <select id="selectByActivityAndOpenid" resultMap="BaseResultMap">
+        SELECT * FROM lottery_participant
+        WHERE activity_id = #{activityId} AND openid = #{openid}
+    </select>
+    
+    <!-- 根据活动ID查询所有参与者 -->
+    <select id="selectByActivityId" resultMap="BaseResultMap">
+        SELECT * FROM lottery_participant
+        WHERE activity_id = #{activityId}
+        ORDER BY participate_time ASC
+    </select>
+    
+    <!-- 统计活动参与人数 -->
+    <select id="countByActivityId" resultType="int">
+        SELECT COUNT(*) FROM lottery_participant
+        WHERE activity_id = #{activityId}
+    </select>
+    
+    <!-- 更新中奖状态 -->
+    <update id="updateWinnerStatus">
+        UPDATE lottery_participant
+        SET is_winner = #{isWinner}
+        WHERE id = #{id}
+    </update>
+    
+    <!-- 批量更新中奖状态 -->
+    <update id="batchUpdateWinnerStatus">
+        UPDATE lottery_participant
+        SET is_winner = 1
+        WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    
+</mapper>
