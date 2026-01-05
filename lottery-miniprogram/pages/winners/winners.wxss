@@ -1,0 +1,32 @@
+/* pages/winners/winners.wxss */
+.winner-list {
+  margin-top: 30rpx;
+}
+
+.winner-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.winner-item:last-child {
+  border-bottom: none;
+}
+
+.winner-info {
+  flex: 1;
+  margin-left: 20rpx;
+}
+
+.winner-name {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.win-time {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 5rpx;
+}

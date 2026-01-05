@@ -1,0 +1,85 @@
+/* pages/index/index.wxss */
+.user-section {
+  margin-bottom: 30rpx;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-name {
+  margin-left: 20rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.btn-login {
+  background-color: #FF6B6B;
+  color: white;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+}
+
+.function-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.function-card {
+  text-align: center;
+  padding: 40rpx 20rpx;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.function-card:active {
+  transform: scale(0.95);
+  opacity: 0.8;
+}
+
+.function-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.function-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.function-desc {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.tips-section {
+  background: linear-gradient(135deg, #FFE5E5 0%, #FFF3E0 100%);
+}
+
+.tip-item {
+  display: flex;
+  margin-bottom: 20rpx;
+  line-height: 1.6;
+}
+
+.tip-item:last-child {
+  margin-bottom: 0;
+}
+
+.tip-number {
+  color: #FF6B6B;
+  font-weight: bold;
+  margin-right: 10rpx;
+}
+
+.tip-text {
+  flex: 1;
+  font-size: 26rpx;
+  color: #666;
+}

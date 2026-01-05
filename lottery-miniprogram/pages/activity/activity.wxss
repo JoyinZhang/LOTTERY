@@ -1,0 +1,57 @@
+/* pages/activity/activity.wxss */
+.activity-card {
+  margin: 20rpx;
+}
+
+.activity-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.activity-desc {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 30rpx;
+  line-height: 1.6;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.value {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.participated-status {
+  background-color: #E8F5E9;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  margin: 30rpx 0;
+  text-align: center;
+}
+
+.status-text {
+  display: block;
+  font-size: 32rpx;
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.winner-text {
+  display: block;
+  font-size: 28rpx;
+  color: #FF6B6B;
+  margin-top: 10rpx;
+}

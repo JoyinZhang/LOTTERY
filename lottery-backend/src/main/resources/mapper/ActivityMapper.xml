@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lottery.mapper.ActivityMapper">
+    
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.lottery.entity.Activity">
+        <id column="id" property="id" />
+        <result column="activity_code" property="activityCode" />
+        <result column="creator_openid" property="creatorOpenid" />
+        <result column="title" property="title" />
+        <result column="description" property="description" />
+        <result column="draw_mode" property="drawMode" />
+        <result column="draw_time" property="drawTime" />
+        <result column="target_participant_count" property="targetParticipantCount" />
+        <result column="prize_count" property="prizeCount" />
+        <result column="status" property="status" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+    
+    <!-- 插入活动 -->
+    <insert id="insert" parameterType="com.lottery.entity.Activity" 
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO lottery_activity (
+            activity_code, creator_openid, title, description,
+            draw_mode, draw_time, target_participant_count, prize_count,
+            status, create_time, update_time
+        ) VALUES (
+            #{activityCode}, #{creatorOpenid}, #{title}, #{description},
+            #{drawMode}, #{drawTime}, #{targetParticipantCount}, #{prizeCount},
+            #{status}, #{createTime}, #{updateTime}
+        )
+    </insert>
+    
+    <!-- 根据活动编码查询 -->
+    <select id="selectByCode" resultMap="BaseResultMap">
+        SELECT * FROM lottery_activity WHERE activity_code = #{activityCode}
+    </select>
+    
+    <!-- 根据ID查询 -->
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM lottery_activity WHERE id = #{id}
+    </select>
+    
+    <!-- 更新活动状态 -->
+    <update id="updateStatus">
+        UPDATE lottery_activity 
+        SET status = #{status}, update_time = NOW()
+        WHERE id = #{id}
+    </update>
+    
+    <!-- 查询待开奖的定时活动 -->
+    <select id="selectPendingTimedActivities" resultMap="BaseResultMap">
+        SELECT * FROM lottery_activity
+        WHERE draw_mode = 1
+        AND status = 1
+        AND draw_time &lt;= #{currentTime}
+        ORDER BY draw_time ASC
+    </select>
+    
+    <!-- 根据创建者查询活动列表 -->
+    <select id="selectByCreator" resultMap="BaseResultMap">
+        SELECT * FROM lottery_activity
+        WHERE creator_openid = #{creatorOpenid}
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+    
+    <!-- 统计创建者的活动数量 -->
+    <select id="countByCreator" resultType="int">
+        SELECT COUNT(*) FROM lottery_activity
+        WHERE creator_openid = #{creatorOpenid}
+    </select>
+    
+</mapper>
